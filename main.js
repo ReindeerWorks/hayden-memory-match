@@ -225,18 +225,19 @@
         setTimeout(showWin, 600);
       }
     } else {
-      // ── No match — pause, shake, flip back ──
+      // ── No match — hold cards face-up so child can read both words,
+      //    then shake and flip back ──
       setTimeout(function () {
         a.classList.add("shake");
         b.classList.add("shake");
-      }, 700);
+      }, 2200);
 
       setTimeout(function () {
         a.classList.remove("flipped", "shake");
         b.classList.remove("flipped", "shake");
         flipped = [];
         locked  = false;
-      }, 1100);
+      }, 2600);
     }
   }
 

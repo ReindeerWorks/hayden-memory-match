@@ -8,16 +8,13 @@ Open `index.html` directly in any browser — no server or build step required.
 
 ## Shared images
 
-This project shares creature images with **spell-the-summon**. Both repos must sit in the same parent folder:
+Images are served from the **spell-the-summon** GitHub Pages site:
 
 ```
-dev/
-├── spell-the-summon/
-│   └── assets/images/   ← PNGs live here
-└── hayden-memory-match/ ← this project
+https://reindeerworks.github.io/spell-the-summon/assets/images/[word].png
 ```
 
-Images are referenced via `../spell-the-summon/assets/images/[word].png`.
+For local development the placeholder fallback (purple square with first letter) will show until images are published. Alternatively, copy PNGs into a local `assets/images/` folder and temporarily swap the paths in `data/words.js`.
 
 ### Required images (Trainee set)
 
