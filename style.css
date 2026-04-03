@@ -1,0 +1,306 @@
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --purple:        #7F77DD;
+  --purple-dark:   #5A52B8;
+  --purple-light:  #EEEDFE;
+  --purple-mid:    #C5C2F4;
+  --pink:          #F472B6;
+  --white:         #FFFFFF;
+  --text:          #2C2A5E;
+  --correct:       #34D399;
+  --correct-light: #D1FAE5;
+  --shadow:        0 4px 0 rgba(0,0,0,.12);
+  --radius:        18px;
+  --radius-sm:     12px;
+}
+
+html, body {
+  min-height: 100%;
+  font-family: 'Nunito', 'Arial Rounded MT Bold', Arial, sans-serif;
+  background: var(--purple-light);
+  color: var(--text);
+  touch-action: manipulation;
+}
+
+/* ── Top Bar ── */
+#top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: var(--purple);
+  color: var(--white);
+  padding: 12px 20px;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+#logo {
+  font-size: 1.25rem;
+  font-weight: 900;
+}
+
+#stars-row {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.star-pip {
+  font-size: 1.4rem;
+  line-height: 1;
+  filter: grayscale(1) opacity(.4);
+  transition: filter .3s, transform .3s;
+}
+
+.star-pip.lit {
+  filter: none;
+  transform: scale(1.2);
+}
+
+/* ── Main ── */
+#app {
+  padding: 20px 16px 60px;
+  display: flex;
+  justify-content: center;
+}
+
+/* ── Grid ── */
+#grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(120px, 160px));
+  gap: 14px;
+  justify-content: center;
+  width: 100%;
+  max-width: 720px;
+}
+
+@media (max-width: 500px) {
+  #grid-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+}
+
+/* ── Card ── */
+.card {
+  aspect-ratio: 3 / 4;
+  position: relative;
+  cursor: pointer;
+  perspective: 700px;
+}
+
+.card-inner {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform .4s cubic-bezier(.4,0,.2,1);
+  border-radius: var(--radius);
+}
+
+.card.flipped   .card-inner,
+.card.matched   .card-inner { transform: rotateY(180deg); }
+
+/* shared face styles */
+.card-front,
+.card-back {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+
+/* ── Back face ── */
+.card-back {
+  background: var(--purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow);
+  border: 3px solid var(--purple-dark);
+}
+
+.card-back-pattern {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  padding: 12px;
+  opacity: .45;
+}
+
+.card-back-pattern span {
+  font-size: 1.4rem;
+  text-align: center;
+  line-height: 1;
+}
+
+/* ── Front face ── */
+.card-front {
+  transform: rotateY(180deg);
+  background: var(--white);
+  border: 3px solid var(--purple-mid);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 8px 8px;
+  gap: 8px;
+}
+
+.card-front img,
+.card-front .card-placeholder {
+  width: 100%;
+  flex: 1 1 0;
+  min-height: 0;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+}
+
+.card-placeholder {
+  background: var(--purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--white);
+  border-radius: var(--radius-sm);
+}
+
+.card-word {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: var(--purple-dark);
+  text-align: center;
+  letter-spacing: .03em;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* ── Matched state ── */
+.card.matched .card-front {
+  border-color: var(--correct);
+  background: var(--correct-light);
+}
+
+/* ── No-match shake ── */
+@keyframes shake {
+  0%,100% { transform: rotateY(180deg) translateX(0); }
+  25%      { transform: rotateY(180deg) translateX(-8px); }
+  75%      { transform: rotateY(180deg) translateX(8px); }
+}
+.card.shake .card-inner {
+  animation: shake .35s ease;
+}
+
+/* ── Attempts bar ── */
+#attempts-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  background: var(--purple-mid);
+  color: var(--purple-dark);
+  font-size: .9rem;
+  font-weight: 700;
+  padding: 6px;
+  z-index: 50;
+}
+
+/* ── Win Screen ── */
+#win-screen {
+  position: fixed;
+  inset: 0;
+  background: rgba(127,119,221,.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+#win-screen[hidden] { display: none; }
+
+#win-box {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 36px 32px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 340px;
+  width: 90%;
+  box-shadow: 0 8px 0 rgba(0,0,0,.15);
+  position: relative;
+  z-index: 201;
+}
+
+#win-emoji {
+  font-size: 4.5rem;
+  animation: bounce .55s ease infinite alternate;
+}
+
+@keyframes bounce {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-14px); }
+}
+
+#win-msg {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--purple-dark);
+  line-height: 1.3;
+}
+
+#win-stars {
+  font-size: 1.6rem;
+  letter-spacing: 4px;
+}
+
+#play-again-btn {
+  background: var(--purple);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 14px 36px;
+  font-family: inherit;
+  font-size: 1.2rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  min-height: 52px;
+  transition: background .15s, transform .1s;
+}
+
+#play-again-btn:hover { background: var(--purple-dark); transform: translateY(-2px); }
+#play-again-btn:active { transform: translateY(0); }
+
+/* ── Confetti ── */
+#confetti-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 200;
+}
+
+@keyframes confetti-fall {
+  0%   { transform: translateY(-8vh) rotate(0deg);   opacity: 1; }
+  100% { transform: translateY(108vh) rotate(720deg); opacity: 0; }
+}
+
+.confetti-piece {
+  position: absolute;
+  top: 0;
+  animation: confetti-fall linear forwards;
+}

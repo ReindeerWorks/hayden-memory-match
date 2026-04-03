@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hayden's Memory Match</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header id="top-bar">
+    <div id="logo">✨ Hayden's Memory Match</div>
+    <div id="stars-row" aria-label="Matched pairs"></div>
+  </header>
+
+  <main id="app">
+    <div id="grid-container"></div>
+  </main>
+
+  <div id="attempts-bar">Tries: <span id="attempts-count">0</span></div>
+
+  <div id="win-screen" hidden>
+    <div id="confetti-container" aria-hidden="true"></div>
+    <div id="win-box">
+      <div id="win-emoji">🎉</div>
+      <div id="win-msg">You found them all, Hayden!<br>Amazing!</div>
+      <div id="win-stars">⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐</div>
+      <button id="play-again-btn">Play Again!</button>
+    </div>
+  </div>
+
+  <script src="data/words.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
