@@ -248,6 +248,10 @@
     speak("You found them all Hayden! Amazing!");
     launchConfetti();
     document.getElementById("win-screen").hidden = false;
+    // Shared GIF celebration (full mix). Guarded so a CDN hiccup never breaks the win.
+    if (window.HaydenCelebrate) {
+      HaydenCelebrate.show({ message: "You did it!" });
+    }
   }
 
   // ── Build / Reset ────────────────────────────────────────────────────────────
