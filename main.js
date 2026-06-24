@@ -23,12 +23,9 @@
   }
 
   function speak(text) {
-    if (!window.speechSynthesis) return;
-    window.speechSynthesis.cancel();
-    var utt   = new SpeechSynthesisUtterance(text);
-    utt.rate  = 0.8;
-    utt.pitch = 1.1;
-    window.speechSynthesis.speak(utt);
+    // Routed through the shared HaydenSpeak helper (waits for voices + first
+    // tap on Android). Guarded so a CDN hiccup never breaks the game.
+    if (window.HaydenSpeak) HaydenSpeak.say(text, { rate: 0.8, pitch: 1.1 });
   }
 
   function getAudioCtx() {
